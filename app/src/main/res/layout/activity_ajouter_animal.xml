@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nom -->
+        <EditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom de l'animal"
+            android:inputType="text" />
+
+        <!-- Espèce -->
+        <EditText
+            android:id="@+id/speciesInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Espèce"
+            android:inputType="text" />
+
+        <!-- Sexe -->
+        <EditText
+            android:id="@+id/sexInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sexe"
+            android:inputType="text" />
+
+        <!-- Date de naissance -->
+        <EditText
+            android:id="@+id/birthDateInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date de naissance"
+            android:inputType="date" />
+
+        <!-- Dernier rendez-vous -->
+        <EditText
+            android:id="@+id/lastAppointmentInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dernier rendez-vous"
+            android:inputType="date" />
+
+        <!-- Bouton Enregistrer -->
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enregistrer" />
+    </LinearLayout>
+</ScrollView>

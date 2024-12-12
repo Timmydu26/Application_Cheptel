@@ -1,0 +1,15 @@
+<resources>
+    <!-- Thème clair -->
+    <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Couleurs personnalisées -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/teal_200</item>
+    </style>
+
+    <!-- Thème sombre (facultatif) -->
+    <style name="Theme.MyApplication.Dark" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+</resources>
