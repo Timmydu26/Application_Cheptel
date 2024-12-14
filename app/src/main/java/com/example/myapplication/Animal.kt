@@ -3,17 +3,26 @@ package com.example.myapplication
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Dao
+import androidx.room.ForeignKey
 import androidx.room.Insert
 import androidx.room.Query
 
-// Cette classe représente la table "animals"
-@Entity(tableName = "animals")
+@Entity(
+    tableName = "animals",
+    foreignKeys = [
+        ForeignKey(entity = Animal::class, parentColumns = ["id"], childColumns = ["identification_parent1"]),
+        ForeignKey(entity = Animal::class, parentColumns = ["id"], childColumns = ["identification_parent2"]),
+        ForeignKey(entity = TypeEspece::class, parentColumns = ["id"], childColumns = ["espece_id"])
+    ]
+)
 data class Animal(
-    // Colonne "id" - Clé primaire, elle est auto-générée
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val name: String,
-    val species: String, // Espèce
-    val sex: String, // Sexe
-    val birthDate: String, // Date de naissance (au format String pour simplifier)
-    val lastAppointment: String // Date du dernier rendez-vous (format String pour simplifier)
+    val nom: String, //nom animal
+    val espece_id: Int, // identifiant espece
+    val sexe: String, // M ou F
+    val date_de_naissance: String,
+    val vivant: Boolean,
+    val identification_parent1: Int?,
+    val identification_parent2: Int?,
+    val identification: String
 )

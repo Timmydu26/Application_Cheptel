@@ -21,3 +21,4 @@ interface AnimalDao {
     @Query("DELETE FROM animals")
     suspend fun deleteAllAnimals(): Int // Retourne le nombre de lignes supprimées
 }
+
