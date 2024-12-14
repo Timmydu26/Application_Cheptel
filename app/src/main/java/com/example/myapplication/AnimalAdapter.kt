@@ -7,15 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AnimalAdapter(
-    private val animalList: List<AnimalWithRelations> // Modèle avec relations pour inclure les noms d'espèces et autres
+    private var animalList: List<Animal>
 ) : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>() {
 
     class AnimalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.findViewById(R.id.textViewName)
-        val speciesTextView: TextView = view.findViewById(R.id.textViewSpecies)
-        val sexTextView: TextView = view.findViewById(R.id.textViewSex)
-        val birthDateTextView: TextView = view.findViewById(R.id.textViewBirthDate)
-        val identificationTextView: TextView = view.findViewById(R.id.textViewIdentification)
+        val nameTextView: TextView = view.findViewById(R.id.animalNameTextView)
+        val speciesTextView: TextView = view.findViewById(R.id.animalSpeciesTextView)
+        val sexTextView: TextView = view.findViewById(R.id.animalSexTextView)
+        val birthDateTextView: TextView = view.findViewById(R.id.animalBirthDateTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
@@ -24,16 +23,18 @@ class AnimalAdapter(
     }
 
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
-        val animalWithRelations = animalList[position]
-        val animal = animalWithRelations.animal
-        val espece = animalWithRelations.espece
+        val animal = animalList[position]
 
         holder.nameTextView.text = "Nom : ${animal.nom}"
-        holder.speciesTextView.text = "Espèce : ${espece?.nom ?: "Inconnue"}"
+        holder.speciesTextView.text = "Espèce ID : ${animal.especeid}" // Vous pouvez afficher le nom de l'espèce si disponible
         holder.sexTextView.text = "Sexe : ${if (animal.sexe == "M") "Mâle" else "Femelle"}"
-        holder.birthDateTextView.text = "Date de naissance : ${animal.dateDeNaissance}"
-        holder.identificationTextView.text = "Identification : ${animal.identification ?: "Aucune"}"
+        holder.birthDateTextView.text = "Date de naissance : ${animal.datedenaissance}"
     }
 
     override fun getItemCount(): Int = animalList.size
+
+    fun updateData(newAnimalList: List<Animal>) {
+        animalList = newAnimalList
+        notifyDataSetChanged()
+    }
 }

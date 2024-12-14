@@ -8,51 +8,109 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Nom de l'animal -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nom de l'animal"
+            android:textStyle="bold" />
         <EditText
             android:id="@+id/nameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nom de l'animal" />
+            android:hint="Entrez le nom" />
 
+        <!-- Espèce -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Espèce"
+            android:textStyle="bold" />
         <Spinner
             android:id="@+id/speciesSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!-- Sexe -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sexe"
+            android:textStyle="bold" />
         <Spinner
             android:id="@+id/sexSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!-- Date de naissance -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date de naissance"
+            android:textStyle="bold" />
         <EditText
             android:id="@+id/birthDateInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date de naissance (dd/mm/yyyy)" />
+            android:hint="Entrez la date de naissance (YYYY-MM-DD)" />
 
+        <!-- Identification -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Identification"
+            android:textStyle="bold" />
         <EditText
             android:id="@+id/identificationInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Identification (puce, etc.)" />
+            android:hint="Entrez l'identification" />
 
-        <EditText
-            android:id="@+id/parent1Input"
+        <!-- Parent 1 (mère) -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Identifiant du parent 1 (facultatif)" />
+            android:text="Mère (Parent 1)"
+            android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/parent1Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/parent2Input"
+        <!-- Parent 2 (père) -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Identifiant du parent 2 (facultatif)" />
+            android:text="Père (Parent 2)"
+            android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/parent2Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <!-- ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Boutons -->
         <Button
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ajouter l'animal" />
+            android:text="Sauvegarder"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retour"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 </ScrollView>

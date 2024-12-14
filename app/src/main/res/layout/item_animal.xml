@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/animalNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nom :" />
+        android:text="Nom :"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textViewSpecies"
+        android:id="@+id/animalSpeciesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Espèce :" />
+        android:text="Espèce :"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textViewSex"
+        android:id="@+id/animalSexTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sexe :" />
+        android:text="Sexe :"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textViewBirthDate"
+        android:id="@+id/animalBirthDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date de naissance :" />
+        android:text="Date de naissance :"
+        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textViewIdentification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Identification :" />
 </LinearLayout>

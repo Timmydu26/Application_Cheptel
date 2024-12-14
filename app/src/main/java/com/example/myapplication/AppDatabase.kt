@@ -1,15 +1,62 @@
 package com.example.myapplication
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.sqlite.db.SupportSQLiteDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-
-@Database(entities = [Animal::class], version = 2)
+@Database(
+    entities = [Animal::class, TypeEspece::class, TypeActe::class, DonneeSante::class],
+    version = 3,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
-    // Associer le DAO à la base de données
+
     abstract fun animalDao(): AnimalDao
+    abstract fun typeEspeceDao(): TypeEspeceDao
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "my_database"
+                )
+                    .addCallback(DatabaseCallback()) // Ajout du Callback
+                    .fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+
+    // Callback pour pré-remplir la base de données
+    private class DatabaseCallback : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            CoroutineScope(Dispatchers.IO).launch {
+                INSTANCE?.let { database ->
+                    val speciesDao = database.typeEspeceDao()
+                    speciesDao.insertAll(
+                        listOf(
+                            TypeEspece(nom = "chien"),
+                            TypeEspece(nom = "chat"),
+                            TypeEspece(nom = "ovin"),
+                            TypeEspece(nom = "bovin"),
+                            TypeEspece(nom = "caprin")
+                        )
+                    )
+                }
+            }
+        }
+    }
 }
