@@ -31,6 +31,8 @@ class OptionsActivity : AppCompatActivity() {
         btnModifierAnimal.setOnClickListener {
             Log.d("ActivityOptions", "Modifier animal")
             // Logique pour modifier un animal
+            val intent = Intent(this, ModifierAnimalActivity::class.java)
+            startActivity(intent)
         }
 
         btnAjouterAnimal.setOnClickListener {

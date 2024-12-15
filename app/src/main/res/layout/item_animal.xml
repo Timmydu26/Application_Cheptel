@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp">
 
+    <!-- Nom et statut combinés -->
     <TextView
-        android:id="@+id/animalNameTextView"
+        android:id="@+id/textViewNameAndStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nom :"
+        android:textStyle="bold"
         android:textSize="16sp" />
 
+    <!-- Espèce -->
     <TextView
-        android:id="@+id/animalSpeciesTextView"
+        android:id="@+id/textViewSpecies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Espèce :"
-        android:textSize="16sp" />
+        android:text="Espèce"
+        android:textSize="14sp" />
 
+    <!-- Identification -->
     <TextView
-        android:id="@+id/animalSexTextView"
+        android:id="@+id/textViewIdentification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sexe :"
-        android:textSize="16sp" />
+        android:text="Identification"
+        android:textSize="14sp" />
 
+    <!-- Date de naissance -->
     <TextView
-        android:id="@+id/animalBirthDateTextView"
+        android:id="@+id/textViewBirthDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date de naissance :"
-        android:textSize="16sp" />
+        android:text="Date de naissance"
+        android:textSize="14sp" />
+
+    <!-- Parents -->
+    <TextView
+        android:id="@+id/textViewParents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parents"
+        android:textSize="14sp" />
 
 </LinearLayout>

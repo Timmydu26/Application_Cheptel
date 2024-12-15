@@ -1,0 +1,85 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nom de l'animal -->
+        <TextView
+            android:id="@+id/animalNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom :"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Espèce -->
+        <TextView
+            android:id="@+id/speciesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Espèce :"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Statut vivant/mort -->
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Statut :"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Date de naissance -->
+        <TextView
+            android:id="@+id/birthDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date de naissance :"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Identification -->
+        <TextView
+            android:id="@+id/identificationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Identification :"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Parent 1 -->
+        <TextView
+            android:id="@+id/parent1TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mère :"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Parent 2 -->
+        <TextView
+            android:id="@+id/parent2TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Père :"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Données santé -->
+        <TextView
+            android:id="@+id/healthDataTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Données santé :"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>

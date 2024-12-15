@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Sélectionner l'animal -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choisir un animal :"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinnerSelectAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- État civil de l'animal -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="État civil :"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioVivant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vivant" />
+
+            <RadioButton
+                android:id="@+id/radioMort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mort" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonSaveState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enregistrer l'état" />
+
+        <!-- Sélectionner le type d'acte -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type d'acte :"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <Spinner
+            android:id="@+id/spinnerSelectTypeActe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Nouvelle donnée de santé -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter une donnée de santé :"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDateActe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date de réalisation (YYYY-MM-DD)" />
+
+        <EditText
+            android:id="@+id/editTextDateRappel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date du rappel (optionnelle)" />
+
+        <CheckBox
+            android:id="@+id/checkBoxRappelRealise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rappel réalisé" />
+
+        <EditText
+            android:id="@+id/editTextDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Détails de l'acte" />
+
+        <Button
+            android:id="@+id/buttonSaveHealth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enregistrer la donnée de santé" />
+
+        <!-- Bouton Retour -->
+        <Button
+            android:id="@+id/buttonRetour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Retour au menu" />
+
+    </LinearLayout>
+</ScrollView>

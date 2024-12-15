@@ -1,22 +1,15 @@
 package com.example.myapplication
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "donnee_sante",
-        foreignKeys = [
-            ForeignKey(entity = Animal::class, parentColumns = ["id"], childColumns = ["animal_id"]),
-            ForeignKey(entity = TypeActe::class, parentColumns = ["id"], childColumns = ["type_evenement_id"])
-        ]
-)
+@Entity(tableName = "donneesante")
 data class DonneeSante(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val animal_id: Int,
-    val type_evenement_id: Int,
-    val date_realisation: String,
-    val date_rappel: String?,
-    val rappel_realise: Boolean
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,         // Clé primaire auto-générée
+    val animalId: Int,                                       // Lien vers l'animal concerné
+    val typeActeId: Int,                                     // Lien vers le type d'acte (ex: vaccination, stérilisation)
+    val dateRealisation: String,                            // Date de réalisation de l'acte
+    val dateRappel: String? = null,                         // Date optionnelle pour le rappel
+    val rappelRealise: Boolean = false,                     // Statut du rappel (true = fait, false = non)
+    val details: String                                     // Description ou détails de l'acte
 )
-

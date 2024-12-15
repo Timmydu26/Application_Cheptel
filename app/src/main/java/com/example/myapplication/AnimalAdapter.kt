@@ -7,14 +7,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AnimalAdapter(
-    private var animalList: List<Animal>
+    private var animalList: List<AnimalListeActivity.AnimalWithSpecies>,
+    private val onClick: (AnimalListeActivity.AnimalWithSpecies) -> Unit
 ) : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>() {
 
     class AnimalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.findViewById(R.id.animalNameTextView)
-        val speciesTextView: TextView = view.findViewById(R.id.animalSpeciesTextView)
-        val sexTextView: TextView = view.findViewById(R.id.animalSexTextView)
-        val birthDateTextView: TextView = view.findViewById(R.id.animalBirthDateTextView)
+        val nameAndStatusTextView: TextView = view.findViewById(R.id.textViewNameAndStatus)
+        val speciesTextView: TextView = view.findViewById(R.id.textViewSpecies)
+        val identificationTextView: TextView = view.findViewById(R.id.textViewIdentification)
+        val birthDateTextView: TextView = view.findViewById(R.id.textViewBirthDate)
+        val parentsTextView: TextView = view.findViewById(R.id.textViewParents)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
@@ -23,18 +25,28 @@ class AnimalAdapter(
     }
 
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
-        val animal = animalList[position]
+        val animalWithSpecies = animalList[position]
+        val animal = animalWithSpecies.animal
 
-        holder.nameTextView.text = "Nom : ${animal.nom}"
-        holder.speciesTextView.text = "Espèce ID : ${animal.especeid}" // Vous pouvez afficher le nom de l'espèce si disponible
-        holder.sexTextView.text = "Sexe : ${if (animal.sexe == "M") "Mâle" else "Femelle"}"
+        // Afficher le nom et le statut sur la même ligne
+        val statusSymbol = if (animal.vivant) "" else "†"
+        holder.nameAndStatusTextView.text = "Nom : ${animal.nom} $statusSymbol"
+
+        holder.speciesTextView.text = "Espèce : ${animalWithSpecies.especeNom}"
+        holder.identificationTextView.text = "Identification : ${animal.identification}"
         holder.birthDateTextView.text = "Date de naissance : ${animal.datedenaissance}"
+        holder.parentsTextView.text = "Parents : ${animal.identificationparent1 ?: "Inconnue"} & ${animal.identificationparent2 ?: "Inconnu"}"
+
+        // Ajouter un événement de clic sur l'élément
+        holder.itemView.setOnClickListener {
+            onClick(animalWithSpecies)
+        }
     }
 
     override fun getItemCount(): Int = animalList.size
 
-    fun updateData(newAnimalList: List<Animal>) {
-        animalList = newAnimalList
+    fun updateData(newData: List<AnimalListeActivity.AnimalWithSpecies>) {
+        animalList = newData
         notifyDataSetChanged()
     }
 }

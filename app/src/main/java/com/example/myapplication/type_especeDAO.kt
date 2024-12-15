@@ -19,4 +19,6 @@ interface TypeEspeceDao {
     // Récupère toutes les espèces
     @Query("SELECT * FROM typeespece")
     suspend fun getAllTypeEspeces(): List<TypeEspece>
+
+
 }

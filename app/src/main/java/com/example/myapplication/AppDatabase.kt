@@ -11,13 +11,15 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [Animal::class, TypeEspece::class, TypeActe::class, DonneeSante::class],
-    version = 3,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun animalDao(): AnimalDao
     abstract fun typeEspeceDao(): TypeEspeceDao
+    abstract fun donneeSanteDao(): DonneeSanteDao // Ajoutez cette ligne pour inclure DonneeSanteDao
+    abstract fun tyoeacteDao(): TypeActeDao
 
     companion object {
         @Volatile

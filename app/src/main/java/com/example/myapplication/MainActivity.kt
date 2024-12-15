@@ -34,11 +34,9 @@ class MainActivity : AppCompatActivity() {
         // Récuper le bouton démarrer
         val startButton = findViewById<Button>(R.id.btnStart)
 
-              startButton.setOnClickListener {
+        startButton.setOnClickListener {
             val intent = Intent(this, OptionsActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 }

@@ -26,4 +26,8 @@ interface AnimalDao {
 
     @Query("SELECT * FROM animal WHERE especeid = :speciesId AND sexe = :sex")
     suspend fun getAnimalsBySpeciesAndSex(speciesId: Int, sex: String): List<Animal>
+
+    @Query("UPDATE animal SET vivant = :isVivant WHERE id = :animalId")
+    suspend fun updateEtatCivil(animalId: Int, isVivant: Boolean)
+
 }
