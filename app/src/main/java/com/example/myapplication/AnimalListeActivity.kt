@@ -1,129 +1,77 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AnimalListeActivity : AppCompatActivity() {
 
-    private lateinit var animalRecyclerView: RecyclerView
-    private lateinit var animalAdapter: AnimalAdapter
-    private lateinit var speciesSpinner: Spinner
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: AnimalAdapter
+    private lateinit var db: AppDatabase
+    private lateinit var animalDao: AnimalDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animal_liste)
 
-        animalRecyclerView = findViewById(R.id.animalRecyclerView)
-        speciesSpinner = findViewById(R.id.speciesSpinner)
-        val backButton = findViewById<Button>(R.id.backButton)
+        recyclerView = findViewById(R.id.animalRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialiser RecyclerView avec un adaptateur vide
-        animalAdapter = AnimalAdapter(emptyList()) { animalWithSpecies ->
-            // Lorsque l'élément est cliqué, démarrer AnimalDetailsActivity
-            val intent = Intent(this, AnimalDetailsActivity::class.java)
-            intent.putExtra("animalId", animalWithSpecies.animal.id)
-            startActivity(intent)
-        }
-        animalRecyclerView.layoutManager = LinearLayoutManager(this)
-        animalRecyclerView.adapter = animalAdapter
+        db = DatabaseProvider.getDatabase(this)
+        animalDao = db.animalDao()
 
-        // Charger la base de données
-        val db = DatabaseProvider.getDatabase(this)
-        val animalDao = db.animalDao()
-        val especeDao = db.typeEspeceDao()
+        loadAnimals()
+    }
 
-        // Charger les espèces dans le spinner
-        CoroutineScope(Dispatchers.IO).launch {
+    private fun loadAnimals() {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val speciesList = especeDao.getAllTypeEspeces().map { it.nom }
-                withContext(Dispatchers.Main) {
-                    val adapter = ArrayAdapter(
-                        this@AnimalListeActivity,
-                        android.R.layout.simple_spinner_item,
-                        listOf("Tout") + speciesList // Ajouter l'option "Tout"
+                val animals = animalDao.getAllAnimals()
+
+                // Mapper les animaux pour inclure les noms des parents
+                val animalsWithParents = animals.map { animal ->
+                    val parent1Name = animal.identificationparent1?.let { animalDao.getParentName(it) } ?: "Inconnu"
+                    val parent2Name = animal.identificationparent2?.let { animalDao.getParentName(it) } ?: "Inconnu"
+
+                    AnimalWithParents(
+                        id = animal.id,
+                        nom = animal.nom,
+                        especeid = animal.especeid,
+                        sexe = animal.sexe,
+                        datedenaissance = animal.datedenaissance,
+                        vivant = animal.vivant,
+                        identification = animal.identification,
+                        parent1Name = parent1Name,
+                        parent2Name = parent2Name
                     )
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    speciesSpinner.adapter = adapter
+                }
+
+                withContext(Dispatchers.Main) {
+                    adapter = AnimalAdapter(animalsWithParents)
+                    recyclerView.adapter = adapter
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@AnimalListeActivity, "Erreur lors du chargement des espèces", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        // Charger les animaux
-        speciesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedSpecies = speciesSpinner.selectedItem.toString()
-                CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        val selectedSpeciesId: Int? = if (selectedSpecies == "Tout") {
-                            null // Tout : Pas de filtre
-                        } else {
-                            especeDao.getAllTypeEspeces().find { it.nom == selectedSpecies }?.id
-                        }
-                        loadAnimals(animalDao, especeDao, selectedSpeciesId)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(this@AnimalListeActivity, "Erreur lors du chargement des animaux", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Rien à faire ici
-            }
-        }
-
-        // Bouton retour
-        backButton.setOnClickListener {
-            finish()
-        }
-    }
-
-    private suspend fun loadAnimals(animalDao: AnimalDao, especeDao: TypeEspeceDao, speciesId: Int?) {
-        try {
-            val animals = if (speciesId == null) {
-                animalDao.getAllAnimals()
-            } else {
-                animalDao.getAllAnimals().filter { it.especeid == speciesId }
-            }
-
-            val animalDetails = animals.map { animal ->
-                val speciesName = especeDao.getAllTypeEspeces().find { it.id == animal.especeid }?.nom ?: "Inconnu"
-                AnimalWithSpecies(
-                    animal = animal,
-                    especeNom = speciesName
-                )
-            }
-
-            withContext(Dispatchers.Main) {
-                animalAdapter.updateData(animalDetails)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@AnimalListeActivity, "Erreur lors du chargement des animaux : ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.e("AnimalListeActivity", "Erreur lors du chargement des animaux : ${e.message}")
             }
         }
     }
 
-    data class AnimalWithSpecies(
-        val animal: Animal,
-        val especeNom: String
+    data class AnimalWithParents(
+        val id: Int,
+        val nom: String,
+        val especeid: Int,
+        val sexe: String,
+        val datedenaissance: String,
+        val vivant: Boolean,
+        val identification: String,
+        val parent1Name: String,
+        val parent2Name: String
     )
 }

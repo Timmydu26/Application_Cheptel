@@ -30,4 +30,7 @@ interface AnimalDao {
     @Query("UPDATE animal SET vivant = :isVivant WHERE id = :animalId")
     suspend fun updateEtatCivil(animalId: Int, isVivant: Boolean)
 
+    @Query("SELECT nom FROM animal WHERE id = :parentId")
+    suspend fun getParentName(parentId: Int): String?
+
 }
